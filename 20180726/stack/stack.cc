@@ -9,19 +9,19 @@
 Stack::Stack():
 	size_(0), capacity_(MIN(INITIAL_STACK_SIZE,max_size_))	//确定栈初始容量
 {
-	elem_ = new dataType[capacity_];	//为栈申请存储空间
+	elem_ = new dataType[capacity_]();	//为栈申请存储空间
 }
 
 Stack::Stack(const Stack &s):
-	size_(s.size_), capacity_(s.capacity_), elem_(new dataType[capacity_])
+	size_(s.size_), capacity_(s.capacity_), elem_(new dataType[capacity_]())
 {
 	memcpy(elem_, s.elem_, sizeof(dataType)*size_);//深拷贝
 }
 
-Stack::Stack(const dataType *arr, int n)
+Stack::Stack(const dataType *arr, unsigned int n)
 {
 	capacity_ = MIN(((n<INITIAL_STACK_SIZE) ? INITIAL_STACK_SIZE : n*2), max_size_);
-	elem_ = new dataType[capacity_];
+	elem_ = new dataType[capacity_]();
 	if(n > capacity_)	//说明插入量比栈最大容量大
 	{
 		size_ = capacity_;
@@ -30,7 +30,7 @@ Stack::Stack(const dataType *arr, int n)
 	{
 		size_ = n;
 	}
-	for(int i = 0; i < size_; i++)
+	for(unsigned int i = 0; i < size_; i++)
 	{
 		elem_[i] = arr[i];
 	}
@@ -54,10 +54,10 @@ bool Stack::push(const dataType &data)	//入栈
 		size_++;
 		if(size_ > capacity_)	//现有容量不足
 		{
-			int old = capacity_;
+			unsigned int old = capacity_;
 			capacity_ = MIN(capacity_*2, max_size_);	//扩容
 			dataType *ptr = elem_;
-			elem_ = new dataType[capacity_];
+			elem_ = new dataType[capacity_]();
 			memcpy(elem_, ptr, old*sizeof(dataType));	//将原有数据深拷贝
 			delete []ptr;	//释放原有空间
 		}

@@ -26,6 +26,11 @@ MutexLock::~MutexLock()
 	pthread_mutex_destroy(&mutex_);	//销毁锁
 }
 
+pthread_mutex_t & MutexLock::mutex()
+{
+	return mutex_;
+}
+
 Condition::Condition()
 {
 	pthread_cond_init(&cond_, NULL);
@@ -38,7 +43,7 @@ Condition::~Condition()
 
 void Condition::wait()
 {
-	pthread_cond_wait(&cond_, &MutexLock::getLock()->mutex_);
+	pthread_cond_wait(&cond_, &MutexLock::getLock()->mutex());
 }
 
 void Condition::notify()
@@ -46,7 +51,12 @@ void Condition::notify()
 	pthread_cond_signal(&cond_);
 }
 
-void Condition::notifyall()
+void Condition::notifyAll()
 {
 	pthread_cond_broadcast(&cond_);
+}
+
+pthread_cond_t & Condition::cond()
+{
+	return cond_;
 }

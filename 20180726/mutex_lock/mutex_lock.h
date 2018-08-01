@@ -8,13 +8,12 @@
 #define MUTEX_LOCK_H_
 #include <pthread.h>
 #include <iostream>
-class Condition;
 class MutexLock
 {
-	friend Condition;
 public:
 	void lock();
 	void unlock();
+	pthread_mutex_t & mutex();
 	static MutexLock* getLock()	//取得锁
 	{
 		if(NULL == pmutex_lock_)
@@ -42,12 +41,13 @@ class Condition
 public:
 	void wait();
 	void notify();
-	void notifyall();
+	void notifyAll();
+	pthread_cond_t & cond();	//取得锁
 	static Condition* getCond()
 	{
 		if(NULL == pcondition_)
 		{
-			pcondition_ = new Condition;
+			pcondition_ = new Condition();
 		}
 		return pcondition_;
 	}
@@ -63,6 +63,6 @@ private:
 	~Condition();
 	static Condition *pcondition_;
 	pthread_cond_t cond_;
-}
+};
 
 #endif

@@ -14,6 +14,8 @@
 #include <iostream>
 class Queue;
 
+//节点指针的值应该有Queue类完成修改工作，任何对节点的赋值、创建操作，都不应该为next_赋值
+//该规律可应用于其他非连续型数据结构
 class QueueNode
 {
 	friend Queue;

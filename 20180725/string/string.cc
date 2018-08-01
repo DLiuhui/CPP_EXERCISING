@@ -9,7 +9,7 @@
 String::String():
 	str_(new char[1]()), use_count_(new int(1))
 {
-	str_[0] = '\0';
+	//str_[0] = '\0';	//可以不用
 }
 
 String::String(const String &str):
