@@ -1,0 +1,21 @@
+///
+/// @file    io1.cc
+/// @author  LiuhuiDing@gmail.com
+/// @date    2018-07-27 11:20:12
+///
+//流：流状态
+#include <unistd.h>
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <limits>
+using std::cin;
+using std::cout;
+using std::endl;
+using std::istream;
+using std::string;
+
+void printCin()
+{
+	cout << cin.bad() << " ";
+this is a new line
